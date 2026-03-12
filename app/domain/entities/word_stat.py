@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 @dataclass(slots=True)
 class WordStat:
     wordform: str
-    total_count: int
+    total_count: int = 0
     line_count: list[int] = field(default_factory=list)
 
     def ensure_line_capacity(self, line_idx: int) -> None:
