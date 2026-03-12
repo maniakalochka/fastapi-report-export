@@ -34,3 +34,18 @@ class WordStat:
 
     def to_row(self) -> tuple[str, int, str]:
         return self.wordform, self.total_count, self.line_count_as_string()
+
+    def padded_line_counts(self, total_lines: int) -> list[int]:
+        if total_lines < len(self.line_count):
+            raise ValueError(
+                "total_lines cannot be less than current line counts length"
+            )
+
+        missing = total_lines - len(self.line_count)
+        if missing == 0:
+            return self.line_count.copy()
+
+        return self.line_count + [0] * missing
+
+    def padded_line_counts_as_string(self, total_lines: int) -> str:
+        return ",".join(map(str, self.padded_line_counts(total_lines)))

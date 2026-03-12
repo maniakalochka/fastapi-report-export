@@ -61,3 +61,32 @@ def test_increment_raises_error_when_count_is_negative() -> None:
 
     with pytest.raises(ValueError, match="count must be positive"):
         stat.increment(line_idx=0, count=-1)
+
+
+def test_padded_line_counts_returns_same_list_when_lengths_match() -> None:
+    stat = WordStat(wordform="житель")
+    stat.increment(line_idx=0, count=1)
+    stat.increment(line_idx=2, count=3)
+
+    assert stat.padded_line_counts(3) == [1, 0, 3]
+
+
+def test_padded_line_counts_adds_trailing_zeros() -> None:
+    stat = WordStat(wordform="житель")
+    stat.increment(line_idx=0, count=1)
+
+    assert stat.padded_line_counts(3) == [1, 0, 0]
+    assert stat.padded_line_counts_as_string(3) == "1,0,0"
+
+
+def test_padded_line_counts_raises_error_when_total_lines_too_small() -> None:
+    import pytest
+
+    stat = WordStat(wordform="житель")
+    stat.increment(line_idx=2, count=1)
+
+    with pytest.raises(
+        ValueError,
+        match="total_lines cannot be less than current line counts length",
+    ):
+        stat.padded_line_counts(2)
