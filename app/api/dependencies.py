@@ -1,6 +1,8 @@
 from app.application.use_cases.export_report import ExportReportUseCase
-from app.infrastructure.exporters.excel_report_exporter import XlsxReportExporter
-from app.infrastructure.morphology.pymorphy3_normalizer import Pymorphy3Normalizer
+from app.infrastructure.exporters.excel_report_exporter import \
+    XlsxReportExporter
+from app.infrastructure.morphology.pymorphy3_normalizer import \
+    Pymorphy3Normalizer
 
 _normalizer = Pymorphy3Normalizer()
 _exporter = XlsxReportExporter()

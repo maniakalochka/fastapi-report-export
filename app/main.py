@@ -1,7 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
 
-
 from app.api.routes.report import router as report_router
 
 app = FastAPI(title="Wordform Report Export")
